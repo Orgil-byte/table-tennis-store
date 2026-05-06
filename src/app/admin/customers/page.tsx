@@ -6,8 +6,7 @@ const customers = [
     name: "Sarah Jenkins",
     email: "sarah.jenkins@example.com",
     status: "Active",
-    statusTone:
-      "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
+    statusTone: "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
     orders: 24,
     spent: "$3,450.00",
     image:
@@ -17,8 +16,7 @@ const customers = [
     name: "Michael Chen",
     email: "m.chen@techcorp.io",
     status: "Active",
-    statusTone:
-      "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
+    statusTone: "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
     orders: 12,
     spent: "$1,890.50",
     image:
@@ -38,8 +36,7 @@ const customers = [
     name: "James Dawson",
     email: "jdawson@enterprise.com",
     status: "Active",
-    statusTone:
-      "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
+    statusTone: "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
     orders: 56,
     spent: "$12,400.25",
     initials: "JD",
@@ -48,7 +45,7 @@ const customers = [
 
 export default function AdminCustomersPage() {
   return (
-    <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 p-6 md:p-8">
+    <div className="mx-auto flex w-full max-w-360 flex-col gap-8 p-6 md:p-8">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-zinc-50">
@@ -77,22 +74,22 @@ export default function AdminCustomersPage() {
 
       <section className="overflow-hidden rounded-lg border border-zinc-800 bg-[#18181B]">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[800px] border-collapse text-left">
+          <table className="w-full min-w-200 border-collapse text-left">
             <thead>
               <tr className="border-b border-zinc-800 bg-zinc-950/30">
-                <th className="px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+                <th className="px-6 py-4 text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                   Customer
                 </th>
-                <th className="px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+                <th className="px-6 py-4 text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                   Status
                 </th>
-                <th className="px-6 py-4 text-right text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+                <th className="px-6 py-4 text-right text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                   Total Orders
                 </th>
-                <th className="px-6 py-4 text-right text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+                <th className="px-6 py-4 text-right text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                   Total Spent
                 </th>
-                <th className="px-6 py-4 text-right text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+                <th className="px-6 py-4 text-right text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                   Actions
                 </th>
               </tr>

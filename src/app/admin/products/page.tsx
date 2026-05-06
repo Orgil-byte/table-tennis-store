@@ -1,11 +1,5 @@
 import Image from "next/image";
-import {
-  Filter,
-  ImageIcon,
-  Pencil,
-  Plus,
-  Trash2,
-} from "lucide-react";
+import { Filter, ImageIcon, Pencil, Plus, Trash2 } from "lucide-react";
 
 const filters = ["All", "Active", "Drafts"] as const;
 
@@ -52,7 +46,7 @@ const products = [
 
 export default function AdminProductsPage() {
   return (
-    <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 p-6 md:p-8">
+    <div className="mx-auto flex w-full max-w-360 flex-col gap-8 p-6 md:p-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-zinc-50">
@@ -94,7 +88,7 @@ export default function AdminProductsPage() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[760px] border-collapse text-left">
+          <table className="w-full min-w-190 border-collapse text-left">
             <thead>
               <tr className="border-b border-zinc-800 bg-zinc-950/30">
                 <th className="w-14 px-4 py-3 text-sm font-medium text-zinc-500" />
@@ -138,7 +132,9 @@ export default function AdminProductsPage() {
                     )}
                   </td>
                   <td className="px-4 py-3">
-                    <div className="font-medium text-zinc-100">{product.name}</div>
+                    <div className="font-medium text-zinc-100">
+                      {product.name}
+                    </div>
                     <div className="mt-1 text-sm text-zinc-500 md:hidden">
                       {product.category}
                     </div>

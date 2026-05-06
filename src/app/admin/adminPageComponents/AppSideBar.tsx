@@ -83,7 +83,7 @@ export function AppSideBar() {
         className="fixed inset-0 z-40 hidden bg-black/80 opacity-0 transition-opacity peer-checked/admin-nav:block peer-checked/admin-nav:opacity-100 lg:hidden"
       />
 
-      <aside className="fixed inset-y-0 left-0 z-50 flex w-[280px] -translate-x-full flex-col border-r border-zinc-800 bg-zinc-950 p-4 shadow-xl transition-transform duration-300 ease-in-out peer-checked/admin-nav:translate-x-0 lg:hidden">
+      <aside className="fixed inset-y-0 left-0 z-50 flex w-70 -translate-x-full flex-col border-r border-zinc-800 bg-zinc-950 p-4 shadow-xl transition-transform duration-300 ease-in-out peer-checked/admin-nav:translate-x-0 lg:hidden">
         <div className="mb-8 flex items-center justify-between px-3 py-2">
           <div className="flex items-center gap-3">
             <div className="flex size-8 items-center justify-center overflow-hidden rounded-full border border-zinc-700 bg-zinc-800">
@@ -99,7 +99,7 @@ export function AppSideBar() {
               <h2 className="text-sm font-bold leading-none text-zinc-50">
                 Operations
               </h2>
-              <span className="text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                 Management
               </span>
             </div>
@@ -136,7 +136,7 @@ export function AppSideBar() {
             <h2 className="text-sm font-bold leading-none text-zinc-50">
               Operations
             </h2>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
               Management
             </span>
           </div>

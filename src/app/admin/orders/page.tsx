@@ -41,7 +41,7 @@ const orders = [
 
 export default function AdminOrdersPage() {
   return (
-    <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 p-6 md:p-8">
+    <div className="mx-auto flex w-full max-w-360 flex-col gap-8 p-6 md:p-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-zinc-50">
@@ -82,25 +82,25 @@ export default function AdminOrdersPage() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[800px] border-collapse text-left">
+          <table className="w-full min-w-200 border-collapse text-left">
             <thead>
               <tr className="border-b border-zinc-800 bg-zinc-950/30">
-                <th className="w-32 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+                <th className="w-32 px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                   Order ID
                 </th>
-                <th className="px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+                <th className="px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                   Customer
                 </th>
-                <th className="w-40 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+                <th className="w-40 px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                   Date
                 </th>
-                <th className="w-32 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+                <th className="w-32 px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                   Status
                 </th>
-                <th className="w-32 px-4 py-3 text-right text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+                <th className="w-32 px-4 py-3 text-right text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                   Total Amount
                 </th>
-                <th className="w-28 px-4 py-3 text-right text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-500">
+                <th className="w-28 px-4 py-3 text-right text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
                   Actions
                 </th>
               </tr>
@@ -127,7 +127,7 @@ export default function AdminOrdersPage() {
                     {order.date}
                   </td>
                   <td className="px-4 py-4">
-                    <span className="inline-flex items-center gap-2 rounded-md border border-zinc-700 bg-zinc-900 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.05em] text-zinc-200">
+                    <span className="inline-flex items-center gap-2 rounded-md border border-zinc-700 bg-zinc-900 px-2 py-1 text-[11px] font-semibold uppercase tracking-wider text-zinc-200">
                       <span
                         className={`size-1.5 rounded-full ${order.statusTone}`}
                       />

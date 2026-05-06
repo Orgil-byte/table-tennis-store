@@ -50,16 +50,41 @@ const stats = [
 ];
 
 const topProducts = [
-  { name: "Wireless Earbuds Pro", units: "850 units", width: "w-[85%]", fill: "bg-white text-zinc-900" },
-  { name: "Mechanical Keyboard", units: "650 units", width: "w-[65%]", fill: "bg-zinc-400 text-zinc-900" },
-  { name: "Ergonomic Mouse", units: "500 units", width: "w-[50%]", fill: "bg-zinc-500 text-zinc-950" },
-  { name: "Monitor Stand", units: "400 units", width: "w-[40%]", fill: "bg-zinc-600 text-white" },
-  { name: "Desk Mat", units: "300 units", width: "w-[30%]", fill: "bg-zinc-700 text-white" },
+  {
+    name: "Wireless Earbuds Pro",
+    units: "850 units",
+    width: "w-[85%]",
+    fill: "bg-white text-zinc-900",
+  },
+  {
+    name: "Mechanical Keyboard",
+    units: "650 units",
+    width: "w-[65%]",
+    fill: "bg-zinc-400 text-zinc-900",
+  },
+  {
+    name: "Ergonomic Mouse",
+    units: "500 units",
+    width: "w-[50%]",
+    fill: "bg-zinc-500 text-zinc-950",
+  },
+  {
+    name: "Monitor Stand",
+    units: "400 units",
+    width: "w-[40%]",
+    fill: "bg-zinc-600 text-white",
+  },
+  {
+    name: "Desk Mat",
+    units: "300 units",
+    width: "w-[30%]",
+    fill: "bg-zinc-700 text-white",
+  },
 ];
 
 export default function AdminOverviewPage() {
   return (
-    <div className="mx-auto w-full max-w-[1440px] p-6 md:p-8">
+    <div className="mx-auto w-full max-w-360 p-6 md:p-8">
       <div className="mb-8">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-zinc-50">
