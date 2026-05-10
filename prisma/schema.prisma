@@ -75,6 +75,7 @@ model ProductVariant {
   size       String?
   color      String?
   orderItems OrderItem[]
+  isActive   Boolean     @default(true)
 
   @@index([productId])
 }

@@ -29,7 +29,7 @@ export const getCategoryBySlug = async (slug: string) => {
 export const addCategory = async (data: {
   name: string;
   slug: string;
-  description: string;
+  description?: string;
 }) => {
   const category = await prisma.category.create({
     data,
