@@ -13,7 +13,7 @@ export default function AdminLayout({
 }) {
   return (
     <div
-      className={`${inter.className} dark min-h-screen bg-[#131315] text-[#e5e1e4]`}
+      className={`${inter.className} dark min-h-screen w-full overflow-x-hidden bg-[#131315] text-[#e5e1e4]`}
     >
       <input
         id="admin-mobile-nav"
@@ -23,7 +23,7 @@ export default function AdminLayout({
 
       <AppSideBar />
 
-      <div className="flex min-h-screen flex-col lg:pl-60">
+      <div className="flex min-h-screen min-w-0 flex-col bg-[#131315] lg:pl-60">
         <header className="sticky top-0 z-20 flex h-14 items-center justify-between border-b border-zinc-800 bg-[#09090B] px-4 sm:px-6">
           <div className="flex items-center gap-4">
             <label
@@ -74,7 +74,7 @@ export default function AdminLayout({
           </div>
         </header>
 
-        <main className="flex-1">{children}</main>
+        <main className="min-w-0 flex-1 bg-[#131315]">{children}</main>
       </div>
     </div>
   );

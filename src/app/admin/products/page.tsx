@@ -1,215 +1,307 @@
 import Image from "next/image";
-import { Filter, ImageIcon, Pencil, Plus, Trash2 } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Edit,
+  ImageIcon,
+  Layers3,
+  Plus,
+  Trash2,
+} from "lucide-react";
 
-const filters = ["All", "Active", "Drafts"] as const;
+type ProductStatus = "Active" | "Draft" | "Archived";
 
-const products = [
+type MockProduct = {
+  id: number;
+  name: string;
+  slug: string;
+  category: string;
+  status: ProductStatus;
+  variants: number;
+  totalStock: number;
+  priceRange: string;
+  created: string;
+  imageUrl?: string;
+};
+
+const filters = [
+  "All",
+  "Active",
+  "Draft",
+  "Archived",
+  "No variants",
+  "Low stock",
+  "Out of stock",
+] as const;
+
+const products: MockProduct[] = [
   {
-    name: "Minimalist Smart Watch",
-    category: "Electronics",
-    price: "$299.00",
-    inventory: 124,
-    stockWidth: "85%",
-    stockTone: "bg-white",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDUstSPMhqeDnE8zDRvS0hWJ2vRMIKXlAsCL3QzIbeQ32gEAtDqNneIo0Gm3OHGMqq5zNDE7BglodbSgmx0PmwU2NTk65EY5XkbrLqmQnKtk0wC6BhZMx8ZYZ1WM0JP1prUHqBv4bnhBsGwo8xNtJrRwXPMxZcdBWO71k1sKgVgWOTC3E7gamypm0jvMiTIgYAdGJh9rVCO5-N_KB8gqlCEwCm-Uyxj6FjtHF4YfHrxZ5MtceU-4Q1qwQmaia_bwX614TLPChpTopwj",
-  },
-  {
-    name: "Noise-Cancelling Headphones",
-    category: "Audio",
-    price: "$349.50",
-    inventory: 8,
-    stockWidth: "12%",
-    stockTone: "bg-red-300",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCFkW-Pf3resnWphclNYHDXj2UiCdLn7pu9q62Um7AI5c5LJfGbaRoTiHW1WXORIAASQRm-sdbhN18Qi0lJtsG68HqdHRLWt1McYoo7pv_niFAfK48jZOguRaFGyfOaR0VQBNYEbWcFg6TtJpQ7I1uBKm3Yh6DqUFHOKY5D_NugOi3XB89R8yNOOLYrg8OVyN6baW4B0CZYQ0HkBmZqxbBocC3ppQB2VCG5taMw4FSYfOHNCgha-p6fNdQ6W7oGVy2ywyNXxLD44x70",
-  },
-  {
-    name: "Ergonomic Desk Chair",
-    category: "Furniture",
-    price: "$599.00",
-    inventory: 42,
-    stockWidth: "45%",
-    stockTone: "bg-white",
-  },
-  {
-    name: "Pro Elite Running Shoes",
+    id: 1,
+    name: "Classic Hoodie",
+    slug: "classic-hoodie",
     category: "Apparel",
-    price: "$180.00",
-    inventory: 210,
-    stockWidth: "95%",
-    stockTone: "bg-white",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDZb6D18C0HguuuJzMIL8aQONEWL-GC7uMk3vRknOO4wTAsKLl-leoDxcAWzWETWlqLmo_woLuzC4yrCQchHd9xI2UsznxEMABK1Y88K0zk-OafblghdpVjE70MMsNRNpsEFad0QpTarYNqowRXHqv2cn7ZIZRh6xSF1E0CYf9GdDtzK5LpT50q0wEMz6PTT4h1tItS2hV3E4BJcqLAZNMgnq-z5gaz8NymLrZSd_Vycwk8XMGdAutNapqj9hB_7gSUWD1uYSXYmrri",
+    status: "Active",
+    variants: 3,
+    totalStock: 150,
+    priceRange: "$45.00 - $55.00",
+    created: "Oct 12, 2023",
+    imageUrl:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuA9jcrCBWPhB6xx_2D7_O-zmiI9K1Tq-ENO4DIMqcQIeosui2ws8hLAknIDLrUEGiatmPZu3P9UOpBK9VgRIE1MteC7NVqPvhGd4C_d2wpUi--hrRLrXO5n2Zs4zt4gPVYW2jA_G6MwH2mCNmJXuwIusI5O8eq0bo-HE5ofdm_mt0rqjyTFd3pbGRNEoJvWT31r6NNe_AIBoiITejsrd0KkRbkXA6CvUtFkoGLgITF8IY7KLj0Tlx6thcJUguf9WuCcxJawXjXXWx7o",
+  },
+  {
+    id: 2,
+    name: "Premium Sneakers",
+    slug: "premium-sneakers",
+    category: "Footwear",
+    status: "Draft",
+    variants: 5,
+    totalStock: 0,
+    priceRange: "$120.00",
+    created: "Oct 24, 2023",
+    imageUrl:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuBRyIU4qyb2sySXX5dUt9hAayxAGtEYcUP44kqPFDFG9Xj0R9-2L5unABog3grQTr7XiwqhMgthG42pBlMppLMDKePDbK9pzkaRDgjKjTJuQxST7D4HVdH0Uz7JCjovl8aLc_MTEe0tC2uuN1R89PFw2AfKiR6oylGbP2cBfulYtmt0QcwReLfHbFtFPrnzRw0P6dm2CEn9alurOIJfvuFbCFAiAOqyw5cpy8EEj-CukPDMCix4XhG1EgcahaGOL0JGAfUBAwTYBnWQ",
+  },
+  {
+    id: 3,
+    name: "Minimalist Watch",
+    slug: "minimalist-watch",
+    category: "Accessories",
+    status: "Archived",
+    variants: 0,
+    totalStock: 0,
+    priceRange: "$199.00",
+    created: "Nov 01, 2023",
+    imageUrl:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuCMvVAcjl4OIrKLOrUywfBjrG-zn-oFEX0bKH_ciuWU3iQo06ZozGbYp7Ne6eYNBGNuBkxHRvQ2uoH5pXobzPn1VHMzW5mT0iN-HxaDBWrUqwoZhZ583LecqMOsI8xcsmMLWrFmlJzWJwghldI8cIhyaAMAoSZVBG7BkflIuPl6l1tihuv4WOc9C70nDU8ndIUwMfKEftQCMDBp954vV4sS9-T3EfUzY86Wn19DJ7c7Lq3VapnowONsSuxHiM0MQUIEBSKiK8Ml7oGE",
+  },
+  {
+    id: 4,
+    name: "Cotton T-Shirt",
+    slug: "cotton-t-shirt",
+    category: "Apparel",
+    status: "Active",
+    variants: 4,
+    totalStock: 12,
+    priceRange: "$25.00",
+    created: "Nov 15, 2023",
   },
 ];
 
-export default function AdminProductsPage() {
-  return (
-    <div className="mx-auto flex w-full max-w-360 flex-col gap-8 p-6 md:p-8">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-zinc-50">
-            Products
+const AdminProductsPage = () => (
+  <div className="min-h-[calc(100vh-3.5rem)] w-full min-w-0 overflow-hidden bg-[#131315]">
+    <div className="mx-auto flex w-full max-w-360 flex-col gap-6 p-4 sm:p-6 lg:p-8">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="min-w-0">
+          <h1 className="text-xl font-semibold leading-7 text-[#e5e1e4]">
+            Products Directory
           </h1>
-          <p className="mt-2 text-sm text-zinc-500">
-            Manage your catalog, inventory, and pricing.
+          <p className="mt-1 text-[13px] leading-4.5 text-[#c4c7c8]">
+            Manage your catalog, variants, and stock levels.
           </p>
         </div>
 
-        <button className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200">
-          <Plus className="size-4" />
-          Add Product
-        </button>
-      </div>
-
-      <section className="overflow-hidden rounded-xl border border-zinc-800 bg-[#18181B]">
-        <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-950/50 px-4 py-4">
-          <div className="flex items-center gap-2">
-            {filters.map((filter, index) => (
-              <button
-                key={filter}
-                className={[
-                  "rounded-md px-3 py-1.5 text-sm transition-colors",
-                  index === 0
-                    ? "border border-zinc-700 bg-zinc-800 text-zinc-100"
-                    : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100",
-                ].join(" ")}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-
-          <button className="rounded-md p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100">
-            <Filter className="size-4" />
-            <span className="sr-only">Filter products</span>
+        <div className="flex flex-wrap items-center gap-3">
+          <button className="inline-flex items-center gap-2 rounded-lg border border-[#444748] bg-[#2a2a2c] px-4 py-2 text-[13px] leading-4.5 text-[#e5e1e4] transition-colors hover:bg-[#353437]">
+            <Download className="size-4" />
+            Export CSV
+          </button>
+          <button className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-[13px] leading-4.5 text-[#2f3131] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] transition-colors hover:bg-[#e2e2e2]">
+            <Plus className="size-4" />
+            Add Product
           </button>
         </div>
+      </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-190 border-collapse text-left">
-            <thead>
-              <tr className="border-b border-zinc-800 bg-zinc-950/30">
-                <th className="w-14 px-4 py-3 text-sm font-medium text-zinc-500" />
-                <th className="px-4 py-3 text-sm font-medium text-zinc-500">
-                  Product Name
-                </th>
-                <th className="px-4 py-3 text-sm font-medium text-zinc-500">
-                  Category
-                </th>
-                <th className="px-4 py-3 text-sm font-medium text-zinc-500">
-                  Price
-                </th>
-                <th className="px-4 py-3 text-sm font-medium text-zinc-500">
-                  Inventory
-                </th>
-                <th className="px-4 py-3 text-right text-sm font-medium text-zinc-500">
-                  Actions
-                </th>
-              </tr>
-            </thead>
+      <div className="border-b border-[#444748] pb-4">
+        <div className="flex flex-wrap items-center gap-2">
+          {filters.map((filter, index) => (
+            <button
+              key={filter}
+              className={[
+                "rounded-full border px-3 py-1.5 text-[13px] leading-4.5 transition-colors",
+                index === 0
+                  ? "border-transparent bg-[#313032] text-[#e5e1e4]"
+                  : "border-[#444748] bg-transparent text-[#c4c7c8] hover:bg-[#353437]",
+                index === 4 ? "sm:ml-3" : "",
+              ].join(" ")}
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
+      </div>
 
-            <tbody className="divide-y divide-zinc-800">
-              {products.map((product) => (
-                <tr
-                  key={product.name}
-                  className="group transition-colors hover:bg-zinc-900/40"
-                >
-                  <td className="px-4 py-3">
-                    {product.image ? (
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        width={40}
-                        height={40}
-                        className="size-10 rounded-lg border border-zinc-800 object-cover"
-                      />
-                    ) : (
-                      <div className="flex size-10 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-800 text-zinc-500">
-                        <ImageIcon className="size-4" />
-                      </div>
-                    )}
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="font-medium text-zinc-100">
-                      {product.name}
-                    </div>
-                    <div className="mt-1 text-sm text-zinc-500 md:hidden">
-                      {product.category}
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className="inline-flex items-center rounded-md border border-zinc-700 bg-zinc-800 px-2 py-0.5 text-[11px] font-medium text-zinc-300">
-                      {product.category}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-sm text-zinc-100">
-                    {product.price}
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-3">
-                      <div className="h-1.5 w-16 overflow-hidden rounded-full bg-zinc-800">
-                        <div
-                          className={`h-full ${product.stockTone}`}
-                          style={{ width: product.stockWidth }}
-                        />
-                      </div>
-                      <span
-                        className={[
-                          "text-sm",
-                          product.inventory < 10
-                            ? "text-red-300"
-                            : "text-zinc-300",
-                        ].join(" ")}
-                      >
-                        {product.inventory}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center justify-end gap-1 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100">
-                      <button className="rounded-md p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100">
-                        <Pencil className="size-4" />
-                        <span className="sr-only">Edit {product.name}</span>
-                      </button>
-                      <button className="rounded-md p-2 text-red-300 transition-colors hover:bg-red-950/30 hover:text-red-200">
-                        <Trash2 className="size-4" />
-                        <span className="sr-only">Delete {product.name}</span>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      <section className="flex min-w-0 flex-col gap-3 md:gap-0 md:overflow-hidden md:rounded-lg md:border md:border-[#444748] md:bg-[#131315]">
+        <div className="hidden grid-cols-[4.75rem_minmax(12rem,1.7fr)_minmax(7.5rem,0.9fr)_7rem_6rem_7.5rem_5.25rem] items-center gap-x-6 border-b border-[#444748] bg-[#1c1b1d] px-5 py-3 text-[11px] font-semibold uppercase leading-4 tracking-wider text-[#c4c7c8] md:grid xl:grid-cols-[4.75rem_minmax(14rem,1.8fr)_minmax(8rem,0.9fr)_7rem_6rem_7.5rem_12rem_5.25rem]">
+          <div className="text-center">Image</div>
+          <div>Product Details</div>
+          <div>Category</div>
+          <div className="text-center">Status</div>
+          <div className="text-center">Variants</div>
+          <div className="text-center">Total Stock</div>
+          <div className="hidden text-right xl:block">Price Range</div>
+          <div className="text-center">Actions</div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-zinc-800 bg-zinc-950/40 px-4 py-4 text-sm text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
-          <span>Showing 1 to 4 of 48 results</span>
-          <div className="flex items-center gap-1">
-            <button
-              disabled
-              className="rounded-md px-2 py-1 text-zinc-600 transition-colors disabled:cursor-not-allowed"
+        <div className="flex flex-col gap-3 md:block md:divide-y md:divide-[#444748]">
+          {products.map((product) => (
+            <article
+              key={product.id}
+              className="grid grid-cols-[2.5rem_minmax(0,1fr)_minmax(5.5rem,auto)] gap-x-3 overflow-hidden rounded-lg border border-[#444748] bg-[#18181a] p-4 md:grid-cols-[4.75rem_minmax(12rem,1.7fr)_minmax(7.5rem,0.9fr)_7rem_6rem_7.5rem_5.25rem] md:items-center md:gap-x-6 md:rounded-none md:border-0 md:bg-transparent md:px-5 md:py-3 md:transition-colors md:hover:bg-[#1c1b1d] xl:grid-cols-[4.75rem_minmax(14rem,1.8fr)_minmax(8rem,0.9fr)_7rem_6rem_7.5rem_12rem_5.25rem]"
             >
-              Prev
-            </button>
-            <button className="rounded-md border border-zinc-700 bg-zinc-800 px-2 py-1 font-medium text-zinc-100">
-              1
-            </button>
-            <button className="rounded-md px-2 py-1 transition-colors hover:bg-zinc-800 hover:text-zinc-100">
-              2
-            </button>
-            <button className="rounded-md px-2 py-1 transition-colors hover:bg-zinc-800 hover:text-zinc-100">
-              3
-            </button>
-            <span className="px-2 py-1">...</span>
-            <button className="rounded-md px-2 py-1 transition-colors hover:bg-zinc-800 hover:text-zinc-100">
-              Next
-            </button>
+              <div className="col-start-1 row-start-1 md:col-auto md:row-auto md:justify-self-center">
+                {product.imageUrl ? (
+                  <div className="size-10 shrink-0 overflow-hidden rounded border border-[#444748] bg-[#2a2a2c]">
+                    <Image
+                      src={product.imageUrl}
+                      alt={product.name}
+                      width={40}
+                      height={40}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded border border-[#444748] bg-[#2a2a2c] text-[#444748]">
+                    <ImageIcon className="size-5" />
+                  </div>
+                )}
+              </div>
+
+              <div className="col-start-2 row-start-1 min-w-0 md:col-auto md:row-auto">
+                <div className="truncate text-sm font-medium leading-5 text-[#e5e1e4]">
+                  {product.name}
+                </div>
+                <div className="mt-0.5 truncate font-mono text-[11px] leading-5 text-[#c4c7c8]">
+                  {product.slug}
+                  <span className="hidden md:inline xl:hidden">
+                    / {product.priceRange}
+                  </span>
+                </div>
+              </div>
+
+              <div className="col-start-2 row-start-2 mt-4 min-w-0 md:col-auto md:row-auto md:mt-0 md:truncate md:text-[13px] md:leading-4.5 md:text-[#c4c7c8]">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-[#8e9192] md:hidden">
+                  Category
+                </div>
+                <div className="mt-0.5 truncate text-[13px] leading-4.5 text-[#e5e1e4] md:mt-0 md:text-[#c4c7c8]">
+                  {product.category}
+                </div>
+              </div>
+
+              <div className="col-start-3 row-start-1 justify-self-end md:col-auto md:row-auto md:justify-self-center">
+                <span
+                  className={[
+                    "inline-flex max-w-full items-center rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide",
+                    product.status === "Active"
+                      ? "bg-[#e2e2e2] text-[#636565]"
+                      : "",
+                    product.status === "Draft"
+                      ? "bg-[#4a4b53] text-[#bcbbc5]"
+                      : "",
+                    product.status === "Archived"
+                      ? "border border-[#444748] bg-[#353437] text-[#c4c7c8]"
+                      : "",
+                  ].join(" ")}
+                >
+                  {product.status}
+                </span>
+              </div>
+
+              <div
+                className={[
+                  "col-start-3 row-start-2 mt-4 min-w-0 text-right md:col-auto md:row-auto md:mt-0 md:text-center md:font-mono md:text-[13px] md:leading-5",
+                  product.variants === 0
+                    ? "md:text-[#c4c7c8]"
+                    : "md:text-[#e5e1e4]",
+                ].join(" ")}
+              >
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-[#8e9192] md:hidden">
+                  Variants
+                </div>
+                <div className="mt-0.5 font-mono text-[13px] leading-5 text-[#e5e1e4] md:mt-0 md:text-inherit">
+                  {product.variants}
+                </div>
+              </div>
+
+              <div className="col-start-2 row-start-3 mt-3 min-w-0 font-mono text-[13px] leading-5 md:col-auto md:row-auto md:mt-0 md:text-center">
+                <div className="font-sans text-[11px] font-semibold uppercase tracking-wider text-[#8e9192] md:hidden">
+                  Stock
+                </div>
+                <div
+                  className={`${product.totalStock < 10 ? "text-red-500" : "text-green-500"} mt-0.5 md:mt-0`}
+                >
+                  {product.totalStock}
+                </div>
+              </div>
+
+              <div className="col-span-2 col-start-2 row-start-4 mt-3 min-w-0 md:col-auto md:row-auto md:mt-0 md:hidden xl:block">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-[#8e9192] md:hidden">
+                  Price Range
+                </div>
+                <div className="mt-0.5 truncate font-mono text-[13px] leading-5 text-[#e5e1e4] xl:mt-0 xl:text-right">
+                  {product.priceRange}
+                </div>
+              </div>
+              <div className="col-span-3 col-start-1 row-start-5 mt-4 flex items-center justify-end gap-1 border-t border-[#444748] pt-3 md:col-auto md:row-auto md:mt-0 md:justify-center md:border-0 md:pt-0">
+                <button
+                  className="rounded p-1.5 text-[#c4c7c8] transition-colors hover:bg-[#353437] hover:text-[#e5e1e4]"
+                  title="View/Edit"
+                >
+                  <Edit className="size-4.5" />
+                  <span className="sr-only">Edit {product.name}</span>
+                </button>
+
+                <button
+                  className="rounded p-1.5 text-[#c4c7c8] transition-colors hover:bg-[#353437] hover:text-[#e5e1e4]"
+                  title="Manage Product"
+                >
+                  <Layers3 className="size-4.5" />
+                  <span className="sr-only">Manage {product.name}</span>
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="overflow-hidden rounded-lg border border-[#444748] md:rounded-none md:border-0 md:border-t md:border-[#444748]">
+          <div className="flex flex-col gap-3 border-t border-[#444748] bg-[#1c1b1d] p-4 text-[13px] leading-4.5 sm:flex-row sm:items-center sm:justify-between md:border-t-0">
+            <span className="text-[#c4c7c8]">
+              Showing 1 to 4 of 128 products
+            </span>
+
+            <div className="flex items-center gap-1">
+              <button
+                disabled
+                className="rounded border border-[#444748] bg-[#131315] p-1 text-[#c4c7c8] opacity-50 disabled:cursor-not-allowed"
+              >
+                <ChevronLeft className="size-4" />
+                <span className="sr-only">Previous page</span>
+              </button>
+              {["1", "2", "3"].map((page) => (
+                <button
+                  key={page}
+                  className={[
+                    "rounded px-3 py-1 text-[13px] leading-4.5",
+                    page === "1"
+                      ? "border border-[#444748] bg-[#353437] text-[#e5e1e4]"
+                      : "border border-transparent bg-[#131315] text-[#c4c7c8] transition-colors hover:bg-[#353437]",
+                  ].join(" ")}
+                >
+                  {page}
+                </button>
+              ))}
+              <span className="px-2 text-[#c4c7c8]">...</span>
+              <button className="rounded border border-[#444748] bg-[#131315] p-1 text-[#c4c7c8] transition-colors hover:bg-[#353437]">
+                <ChevronRight className="size-4" />
+                <span className="sr-only">Next page</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
     </div>
-  );
-}
+  </div>
+);
+
+export default AdminProductsPage;

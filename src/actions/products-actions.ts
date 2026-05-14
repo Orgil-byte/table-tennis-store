@@ -39,6 +39,7 @@ export const getProducts = async () => {
     },
 
     include: {
+      category: true,
       images: true,
       variants: {
         where: { isActive: true },
@@ -55,6 +56,7 @@ export const getProducts = async () => {
 export const getAdminProducts = async () => {
   return await prisma.product.findMany({
     include: {
+      category: true,
       images: true,
       variants: {
         include: {
@@ -72,6 +74,7 @@ export const getProductBySlug = async (slug: string) => {
     where: { slug },
 
     include: {
+      category: true,
       images: true,
       variants: {
         where: { isActive: true },
