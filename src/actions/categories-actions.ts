@@ -2,6 +2,12 @@
 
 import prisma from "../lib/prisma";
 
+type AddCategoryInput = {
+  name: string;
+  slug: string;
+  description?: string;
+};
+
 // =====================================================================
 
 export const getCategories = async () => {
@@ -26,16 +32,38 @@ export const getCategoryBySlug = async (slug: string) => {
 
 // =====================================================================
 
-export const addCategory = async (data: {
-  name: string;
-  slug: string;
-  description?: string;
-}) => {
-  const category = await prisma.category.create({
-    data,
-  });
+export const addCategory = async (data: AddCategoryInput) => {
+  try {
+    await prisma.category.create({
+      data: {
+        name: data.name.trim(),
+        slug: data.slug.trim(),
+        description: data.description?.trim() || null,
+      },
+    });
 
-  return category;
+    return {
+      success: true,
+      message: "Category created successfully.",
+    };
+  } catch (error) {
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === "P2002"
+    ) {
+      return {
+        success: false,
+        message: `"${data.name}" already exists in category. Create another name.`,
+      };
+    }
+
+    return {
+      success: false,
+      message: "Failed to create category. Please try again.",
+    };
+  }
 };
 
 // =====================================================================
@@ -61,7 +89,12 @@ export const updateCategory = async (
 ) => {
   const category = await prisma.category.update({
     where: { id },
-    data,
+    data: {
+      name: data.name.trim(),
+      slug: data.slug.trim(),
+      description: data.description.trim() || null,
+      isActive: data.isActive,
+    },
   });
 
   return category;

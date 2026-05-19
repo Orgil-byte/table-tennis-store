@@ -1,13 +1,13 @@
 "use client";
 
 import { deleteCategory } from "@/src/actions/categories-actions";
-import { CategoryType } from "@/src/types";
 import { LoaderCircle, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { CategoryWithProducts } from "@/src/types";
 
 type DeleteCategFromPageProps = {
-  category: CategoryType;
+  category: CategoryWithProducts;
 };
 
 export const DeleteCategFromPage = ({ category }: DeleteCategFromPageProps) => {
@@ -22,6 +22,11 @@ export const DeleteCategFromPage = ({ category }: DeleteCategFromPageProps) => {
 
     if (!confirmed) {
       return;
+    }
+
+    if (category.products.length > 0) {
+      window.alert(`
+        Move or delete products first`);
     }
 
     try {

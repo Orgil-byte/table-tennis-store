@@ -14,7 +14,7 @@ const AdminCategoriesPage = async () => {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {categories.length === 0 ? (
           <div className="text-3xl font-semibold tracking-tight text-zinc-50">
-            No categories!!!
+            No categories yet. Create your first category to organize products.
           </div>
         ) : (
           categories.map((category) => {
